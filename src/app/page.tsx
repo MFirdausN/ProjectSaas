@@ -51,9 +51,10 @@ export default async function DashboardPage({ params }: { params: { id: string }
   const content = data.rows.slice(1);
 
   const totalData = content.length;
-  // Index 3 adalah kolom 'Status Kirim' berdasarkan gambar data kamu
-  const sentCount = content.filter(row => row[3] === "Sent").length;
-  const openedCount = content.filter(row => row[3] === "Opened").length;
+
+  // Menambahkan tipe string[] pada parameter row
+  const sentCount = content.filter((row: string[]) => row[3] === "Sent").length;
+  const openedCount = content.filter((row: string[]) => row[3] === "Opened").length;
 
   const aiInsight = await getAIInsight(sentCount, openedCount);
 
@@ -129,8 +130,8 @@ export default async function DashboardPage({ params }: { params: { id: string }
                       <td key={cellIndex} className="px-6 py-4 text-sm text-gray-600">
                         {cellIndex === 3 ? (
                           <span className={`px-3 py-1 rounded-full text-xs font-bold ${cell === "Sent" ? "bg-blue-100 text-blue-700" :
-                              cell === "Opened" ? "bg-green-100 text-green-700" :
-                                "bg-gray-100 text-gray-600"
+                            cell === "Opened" ? "bg-green-100 text-green-700" :
+                              "bg-gray-100 text-gray-600"
                             }`}>
                             {cell}
                           </span>
